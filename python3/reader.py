@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
+import logging
 import re
+from types import List, Int, String
 
 
 class Reader:
@@ -10,7 +12,8 @@ class Reader:
     def next(self):
         """returns the tokens at the current position and increments the position."""
         self.position += 1
-        return self.peek()
+        peek = self.peek()
+        return peek
 
     def peek(self):
         """ just returns the token at the current position."""
@@ -18,7 +21,9 @@ class Reader:
 
 
 def read_str(value):
+    logging.debug("read_str({value!r})".format(value=value))
     tokens = tokenize(value)
+    logging.debug("tokens: " + repr(tokens))
     reader = Reader(tokens)
     return read_form(reader)
 
@@ -36,7 +41,7 @@ def read_form(reader):
 
 
 def read_list(reader):
-    results = []
+    results = List()
     while True:
         token = reader.next()
         if token == ")":
@@ -47,7 +52,9 @@ def read_list(reader):
 def read_atom(reader):
     token = reader.peek()
     if token.isdigit():
-        return int(token)
+        return Int(token)
+    if token.startswith('"') and token.endswith('"'):
+        return String(token[1:-1])  # strip the quotes
     return str(token)
 
 

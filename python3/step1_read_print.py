@@ -1,23 +1,22 @@
 # -*- encoding: utf-8 -*-
-import reader, printer
-
-def READ(value):
-    return reader.read_str(value)
+import reader
+import printer
 
 
-def EVAL(value):
-    return value
+def READ(str_):
+    return reader.read_str(str_)
 
 
-def PRINT(value):
-    return printer.pr_str(value)
+def EVAL(ast):
+    return ast
 
 
-def rep(value):
-    read = READ(value)
-    eval_ = EVAL(read)
-    print_ = PRINT(eval_)
-    return print_
+def PRINT(exp):
+    return printer.pr_str(exp)
+
+
+def rep(str_):
+    return PRINT(EVAL(READ(str_)))
 
 
 def main():
