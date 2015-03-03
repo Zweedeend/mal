@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 import logging
 import re
-from types import List, Int, String
+from types import List, Int, String, Symbol
 
 
 class Reader:
@@ -54,7 +54,7 @@ def read_atom(reader):
     if token.isdigit():
         return Int(token)
     if token.startswith('"') and token.endswith('"'):
-        return String(token[1:-1])  # strip the quotes
-    return str(token)
+        return String.from_token(token)
+    return Symbol(token)
 
 

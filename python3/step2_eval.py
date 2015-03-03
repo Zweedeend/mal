@@ -1,6 +1,8 @@
+#!/usr/bin/env python3
 # -*- encoding: utf-8 -*-
 import operator
 import logging
+
 import reader
 import printer
 from types import List, Symbol
@@ -14,19 +16,19 @@ def READ(str_):
 
 
 def eval_ast(ast, env):
-    if isinstance(ast, Symbol) and ast in env:  # a symbol
+    if isinstance(ast, Symbol):  # a symbol
+        if ast not in env:
+            raise NameError(ast)
         return env[ast]
     if isinstance(ast, List):
-        return [eval_ast(item, env) for item in ast]
+        return [EVAL(item, env) for item in ast]
     return ast
 
 
 def EVAL(ast, env):
-    if isinstance(ast, list):
-        func, *args = ast
-        if func in env:
-            func = env[func]
-            return func(*args)
+    if isinstance(ast, List):
+        func, *args = eval_ast(ast, env)
+        return func(*args)
     return eval_ast(ast, env)
 
 

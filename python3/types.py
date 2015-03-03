@@ -16,6 +16,10 @@ class Int(int):
 
 
 class String(str):
+    @classmethod
+    def from_token(cls, token):
+        return cls(token[1:-1])
+
     def __str__(self):
         return '"' + self + '"'
 
