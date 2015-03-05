@@ -23,5 +23,6 @@ class String(str):
     def __str__(self):
         return '"' + self + '"'
 
-
+class nil:
+    pass
 
