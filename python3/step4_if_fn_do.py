@@ -2,8 +2,8 @@
 # -*- encoding: utf-8 -*-
 import operator
 import logging
-from env import Env
 
+from env import Env
 import reader
 import printer
 from types import List, Symbol
@@ -67,12 +67,10 @@ def PRINT(exp):
 
 repl_env = Env()
 
-
 repl_env.set('+', operator.add)
 repl_env.set('-', operator.sub)
 repl_env.set('*', operator.mul)
 repl_env.set('/', operator.floordiv)
-
 
 
 def rep(text):
