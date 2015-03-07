@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
 
 class Env:
-    def __init__(self, outer=None):
+    def __init__(self, outer=None, binds=(), exprs=()):
         self.data = {}
         self.outer = outer
+        for bind, expr in zip(binds, exprs):
+            self.set(bind, expr)
 
     def set(self, key, value):
         """takes a symbol key and a mal value and adds to the data structure"""

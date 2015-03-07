@@ -55,6 +55,12 @@ def read_atom(reader):
         return Int(token)
     if token.startswith('"') and token.endswith('"'):
         return String.from_token(token)
+    if token == "nil":
+        return None
+    if token == "true":
+        return True
+    if token == "false":
+        return False
     return Symbol(token)
 
 
